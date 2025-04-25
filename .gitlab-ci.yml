@@ -4,15 +4,7 @@ stages:
   - package
   - deploy
 
-# Use official Maven + OpenJDK image for building and deploying
-image: maven:3.8.4-openjdk-17
-
-# Docker-in-Docker service to manage Docker containers
-services:
-  - docker:dind
-
 variables:
-  DOCKER_DRIVER: overlay2  # Optimizing Docker's file system driver
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end"
 
@@ -30,6 +22,7 @@ build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
 
+
 test:
   stage: test
   script:
@@ -44,6 +37,7 @@ test:
       - target/site/jacoco-both/index.html
       - target/site/jacoco-both/
 
+
 package:
   stage: package
   script:
@@ -52,10 +46,11 @@ package:
     paths:
       - target/*.jar
 
+
 deploy:
   stage: deploy
   script:
-    - echo "Building Docker images using Docker Compose"
-    - docker-compose up --build -d  # Build and deploy using Docker Compose
+    - echo "Running Docker Compose"
+    - docker-compose up --build -d
   only:
-    - master  # Deploy only on the master branch
+    - master
