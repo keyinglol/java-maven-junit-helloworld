@@ -21,11 +21,12 @@ public class HelloApp {
         int times = DEFAULT_TIMES;
         if (args.length >= 1) {
             try {
-                times = Integer.valueOf(args[0]);
+                times = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
                 System.err.println("I don't understand the parameter you passed me. Is it a number? " +
                         "Parameter was: [" + args[0] + "]");
-                System.exit(EXIT_STATUS_PARAMETER_NOT_UNDERSTOOD);
+                throw new IllegalArgumentException("Parameter not understood");
+                //System.exit(EXIT_STATUS_PARAMETER_NOT_UNDERSTOOD);
             }
         }
 
@@ -34,9 +35,20 @@ public class HelloApp {
             hi.setTimes(times);
         } catch (IllegalArgumentException e) {
             System.err.println("Something went wrong: " + e.getMessage());
-            System.exit(EXIT_STATUS_HELLO_FAILED);
+            throw new IllegalArgumentException("Parameter not understood");
+            //System.exit(EXIT_STATUS_HELLO_FAILED);
         }
         hi.sayHello(System.out);
+
+        // Keep the container alive
+        System.out.println("App finished saying hello. Now keeping container alive...");
+        try {
+            while (true) {
+                Thread.sleep(10000); // Sleep 10 seconds in a loop
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Exiting container...");
+        }
     }
 
 }

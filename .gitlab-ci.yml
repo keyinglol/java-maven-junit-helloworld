@@ -1,0 +1,52 @@
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end"
+
+cache:
+  paths:
+    - .m2/repository
+
+before_script:
+  - echo "Using Java and Maven"
+  - apt-get update && apt-get install -y maven openjdk-17-jdk
+  - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+build:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS compile
+
+
+test:
+  stage: test
+  script:
+    - mvn test
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/surefire-reports/
+
+
+package:
+  stage: package
+  script:
+    - mvn $MAVEN_CLI_OPTS package
+  artifacts:
+    paths:
+      - target/app.jar
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Running Docker Compose"
+    - docker-compose up --build -d
+  only:
+    - main
