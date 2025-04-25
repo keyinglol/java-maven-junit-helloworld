@@ -71,6 +71,8 @@ variables:
 
 stages:
   - build
+  - test
+  - package
   - deploy
 
 before_script:
@@ -82,6 +84,29 @@ build:
   stage: build
   script:
     - mvn clean package
+
+test:
+  stage: test
+  script:
+    - echo "Running unit + integration tests with coverage..."
+    - mvn verify
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/surefire-reports/
+      - target/site/jacoco-both/index.html
+      - target/site/jacoco-both/
+
+package:
+  stage: package
+  script:
+    - mvn $MAVEN_CLI_OPTS package
+  artifacts:
+    paths:
+      - target/*.jar
+
 
 deploy:
   stage: deploy
