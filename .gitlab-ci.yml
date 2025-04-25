@@ -26,13 +26,16 @@ build:
 test:
   stage: test
   script:
-    - mvn test
+    - echo "Running unit + integration tests with coverage..."
+    - mvn verify
   artifacts:
     when: always
     reports:
       junit: target/surefire-reports/TEST-*.xml
     paths:
       - target/surefire-reports/
+      - target/site/jacoco-both/index.html
+      - target/site/jacoco-both/
 
 
 package:
