@@ -16,6 +16,10 @@ before_script:
   - echo "Using Java and Maven"
   - apt-get update && apt-get install -y maven openjdk-17-jdk
   - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+  - echo "Installing Docker"
+  - apt-get update && apt-get install -y docker.io
+  - systemctl start docker  # Start Docker service
+  - docker --version  # Verifies Docker installation
 
 build:
   stage: build
