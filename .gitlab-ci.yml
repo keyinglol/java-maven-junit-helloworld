@@ -58,4 +58,4 @@ deploy:
     - echo "Building Docker images using Docker Compose"
     - docker-compose up --build -d  # Build and deploy using Docker Compose
   only:
-    - master  # Deploy only on the main branch
+    - master  # Deploy only on the master branch
