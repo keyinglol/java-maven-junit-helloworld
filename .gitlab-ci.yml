@@ -50,7 +50,9 @@ package:
 deploy:
   stage: deploy
   script:
-    - echo "Running Docker Compose"
-    - docker-compose up --build -d
+    - docker build -t myapp .
+    - docker run -d -p 8080:8080 myapp
   only:
     - master
+
+
