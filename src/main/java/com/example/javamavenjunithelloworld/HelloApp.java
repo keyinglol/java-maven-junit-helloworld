@@ -40,15 +40,15 @@ public class HelloApp {
         }
         hi.sayHello(System.out);
 
-        // Keep the container alive
-        System.out.println("App finished saying hello. Now keeping container alive...");
-        try {
-            while (true) {
-                Thread.sleep(10000); // Sleep 10 seconds in a loop
-            }
-        } catch (InterruptedException e) {
-            System.out.println("Exiting container...");
-        }
+//        // Keep the container alive
+//        System.out.println("App finished saying hello. Now keeping container alive...");
+//        try {
+//            while (true) {
+//                Thread.sleep(10000); // Sleep 10 seconds in a loop
+//            }
+//        } catch (InterruptedException e) {
+//            System.out.println("Exiting container...");
+//        }
     }
 
 }
