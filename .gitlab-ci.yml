@@ -49,4 +49,4 @@ deploy:
     - echo "Running Docker Compose"
     - docker-compose up --build -d
   only:
-    - main
+    - master
