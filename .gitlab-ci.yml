@@ -60,6 +60,7 @@
 #    - master
 #
 #
+#
 image: docker:latest
 
 services:
