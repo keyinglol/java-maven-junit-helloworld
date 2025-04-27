@@ -17,6 +17,8 @@ FROM eclipse-temurin:17-jdk-jammy
 # Set working directory
 WORKDIR /app
 
+EXPOSE 8080
+
 # Copy the jar file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
