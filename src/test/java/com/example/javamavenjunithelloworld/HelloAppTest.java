@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(MockitoExtension.class)
 public class HelloAppTest {
-    static SecurityManager originalSecurityManager;
+    // static SecurityManager originalSecurityManager;
 
     @BeforeAll
     public static void setup() {
